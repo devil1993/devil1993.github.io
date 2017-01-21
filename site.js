@@ -35,7 +35,7 @@ function getRouteData(){
     $.ajax({
         url:'data/'+selected_route+'.json',
         //url:'data/'+'x'+'.json',
-        cache:true,
+        //cache:true,
         dataType: 'json',
         beforeSend: function () { 
             $('#overlay').css('display','block');
