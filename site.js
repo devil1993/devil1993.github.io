@@ -21,7 +21,6 @@ function initMap() {
 }
 
 function setTimes() {
-    alert('Route ' + $('#direction').val() + ' ' + $('#route').val() + ' is selected.');
     selected_route = $('#route').val() + '_' + $('#direction').val() 
     times = selected_route + '_times'
     available_times = eval(times);
@@ -38,6 +37,9 @@ function getRouteData(){
         //url:'data/'+'x'+'.json',
         cache:true,
         dataType: 'json',
+        beforeSend: function () { 
+            $('#overlay').css('display','block');
+        },
         success:function(data){
             // three points through which the directions pass
             length = data.length;
@@ -86,8 +88,11 @@ function getRouteData(){
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
             console.log(textStatus);
-            console.log(errorThrown);
+            alert(errorThrown);
         },
+        complete: function () { 
+            $('#overlay').css('display','none');
+        }
     });
 }
 
