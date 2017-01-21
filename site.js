@@ -4,6 +4,21 @@ var ukhra_up_times = [6,7,9,10,13,14,16]
 var ukhra_down_times = []
 
 var selected_route = 'azone_up';
+var loaded=false;
+
+var map;
+
+function initMap() {
+    var uluru = {lat: 22.546, lng: 88.354};
+    map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 14,
+    center: uluru
+    });
+    var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+    });
+}
 
 function setTimes() {
     alert('Route ' + $('#direction').val() + ' ' + $('#route').val() + ' is selected.');
@@ -24,8 +39,49 @@ function getRouteData(){
         cache:true,
         dataType: 'json',
         success:function(data){
-            alert('ok');
-            console.log(data);
+            // three points through which the directions pass
+            length = data.length;
+            console.log(parseInt(length/2));
+            var myOptions = {
+                center: new google.maps.LatLng(data[parseInt(length/2)].lat,data[parseInt(length/2)].long),
+                zoom: 13,
+                scaleControl: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+            map = new google.maps.Map(document.getElementById("map"),
+                myOptions);
+            var last = 0;
+            data.forEach(function(element) {
+                if(last == 0){
+                    last = new google.maps.LatLng(element.lat,element.long);
+                }
+                var point = new google.maps.LatLng(element.lat,element.long);
+                //console.log(element);
+                //points.push({location:point});\
+                var clr = 'green';
+                if(element.stop == -1){
+                    clr = 'blue';
+                }
+                var lineSymbol = {
+                    path: 'M 0,-1 0,1',
+                    strokeOpacity: 1,
+                    scale: 4,
+                    strokeColor: clr
+                };
+                var line = new google.maps.Polyline({
+                    path: [last,point],
+                    //path: [{lat: 22.291, lng: 153.027}, {lat: 18.291, lng: 153.027}],
+                    strokeOpacity: 0,
+                    icons: [{
+                        icon: lineSymbol,
+                        offset: '0',
+                        repeat: '20px'
+                    }],
+                    map: map
+                });
+                last = point;
+            }, this);
+            //console.log(map);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
