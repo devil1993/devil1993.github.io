@@ -101,6 +101,7 @@ $(document).ready(function () {
     $('#route').change(setTimes);
     $('#direction').change(setTimes);
     $('#getdata').click(function(){
+        alert("Sorry, this feature is under construction!");
         var time= ''
         if(!$('#time').val()){
             time = $('#timeofday').val();
