@@ -33,7 +33,7 @@ function setTimes() {
 
 function getRouteData(){
     $.ajax({
-        url:'data/'+selected_route+'.json',
+        url:'data/'+selected_route+'.json?a=2',
         //url:'data/'+'x'+'.json',
         //cache:true,
         dataType: 'json',
