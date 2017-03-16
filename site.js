@@ -109,7 +109,28 @@ $(document).ready(function () {
         else{
             time = $('#time').val();
         }
-        fileName = $('#route').val()+'_'+$('#direction').val()+'_'+time;
+        fileName = 'data/timed_data/'+$('#route').val()+'_'+$('#direction').val()+'/'+time+'.json';
         alert('Getting : '+fileName);
+        $.ajax({
+            url:fileName+'?a=2',
+            //url:'data/'+'x'+'.json',
+            //cache:true,
+            dataType: 'json',
+            beforeSend: function () { 
+                $('#overlay').css('display','block');
+            },
+            success:function(data){
+                // three points through which the directions pass
+                alert(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                alert(errorThrown);
+            },
+            complete: function () { 
+                $('#overlay').css('display','none');
+            }
+        });
     });
 });
