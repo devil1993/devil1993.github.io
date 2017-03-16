@@ -413,27 +413,28 @@
     </div>
     <div class="col-md-8 col-md-offset-2">
       <h3>Leave me a message</h3>
-      <form name="sentMessage" id="contactForm" novalidate>
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLScIhIWc7BpJScnLois4y-kmBhjcps7jPgfCJGFWdS7MoRj1CQ/formResponse"
+       name="sentMessage" id="contactForm" method="POST" novalidate>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <input type="text" id="name" class="form-control" placeholder="Name" required="required">
+              <input type="text" id="name" class="form-control" placeholder="Name" name="entry.1354604680" required="required">
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <input type="email" id="email" class="form-control" placeholder="Email" required="required">
+              <input type="email" id="email" class="form-control" placeholder="Email" required="required" name="entry.1431794290">
               <p class="help-block text-danger"></p>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message" required></textarea>
+          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message" required="required" name="entry.1522306244"></textarea>
           <p class="help-block text-danger"></p>
         </div>
         <div id="success"></div>
-        <button type="submit" class="btn btn-default">Send Message</button>
+        <button type="submit" class="btn btn-default" id="sbmt">Send Message</button>
       </form>
       <div class="social">
         <ul>
