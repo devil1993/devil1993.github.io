@@ -34,7 +34,14 @@
     <![endif]-->
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
+<!-- <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script> -->
 <!-- Header -->
 <header id="header">
   <div class="gradient">
@@ -67,15 +74,17 @@
           <li class="hidden"> <a href="#page-top"></a> </li>
           <li> <a class="page-scroll" href="#about">About</a> </li>
           <li> <a class="page-scroll" href="#skills">Skills</a> </li>
-          <li> <a class="page-scroll" href="#portfolio">Portfolio</a> </li>
           <li> <a class="page-scroll" href="#resume">Resume</a> </li>
+          <li> <a class="page-scroll" href="#portfolio">Galary</a> </li>
           <li> <a class="page-scroll" href="#contact">Contact</a> </li>
+          <li> <a class="page-scroll" href="#downlodables">Downloads</a> </li>
         </ul>
       </div>
     </div>
   </nav>
 </div>
 <!-- About Section -->
+<div id="fb-root"></div>
 <div id="about">
   <div class="container">
     <div class="section-title text-center center">
@@ -86,10 +95,9 @@
       <div class="col-md-12 text-center"><img src="img/about2.jpg" class="img-responsive"></div>
       <div class="col-md-8 col-md-offset-2">
         <div class="about-text">
-          <p>Hi, I am Samanway. Graduate in computer Science and Engineering, currently persuing my Masters studies in National Institute of Technology, Durgapur, India.</p>
-          <p>Before starting my post-graduate course I worked in IT(Services) Industry as a DotNet Full Stack Developer. I enjoy web-development and learning new technologies. Apart from Web technologies, I am interested in Data Science and Machine Learning.</p>
+          <p>Hi, I am Samanway. Graduate in computer Science and Engineering, currently working as a DotNet Developer with Factset Systems India Pvt. Ltd. from Hyderabad, India.</p>
+          <p>Earlier I worked in IT(Services) Industry as a DotNet Full Stack Developer. I enjoy web-development and learning new technologies. Apart from Web technologies, I am interested in Data Science and Machine Learning.</p>
 	        <p>Apart from all these I am very much interested in Music and Sports. I love playing Cricket, Table-Tennis, Vollyball etc. Listening to various kinds of music is my favourite passtime.</p>          
-          <p class="text-center"><a class="btn btn-primary" href="#"><i class="fa fa-download"></i> Download Resume</a></p>
         </div>
       </div>
     </div>
@@ -106,7 +114,7 @@
       <div class="col-md-3 col-sm-6 skill"> <span class="chart" data-percent="85"> <span class="percent">85</span> </span>
         <h4>C#</h4>
       </div>
-      <div class="col-md-3 col-sm-6 skill"> <span class="chart" data-percent="80"> <span class="percent">80</span> </span>
+      <div class="col-md-3 col-sm-6 skill"> <span class="chart" data-percent="80"> <span class="percent">75</span> </span>
         <h4>Java</h4>
       </div>
       <div class="col-md-3 col-sm-6 skill"> <span class="chart" data-percent="80"> <span class="percent">80</span> </span>
@@ -125,7 +133,7 @@
       <div class="col-md-4 col-sm-6 skill"> <span class="chart" data-percent="90"> <span class="percent">90</span> </span>
         <h4>ASP.Net & MVC</h4>
       </div>
-      <div class="col-md-4 col-sm-6 skill"> <span class="chart" data-percent="75"> <span class="percent">75</span> </span>
+      <div class="col-md-4 col-sm-6 skill"> <span class="chart" data-percent="75"> <span class="percent">70</span> </span>
         <h4>JSP & Servlets</h4>
       </div>
       <div class="col-md-4 col-sm-6 skill"> <span class="chart" data-percent="75"> <span class="percent">75</span> </span>
@@ -137,11 +145,11 @@
       <hr>
     </div>
     <div class="row">
-      <div class="col-md-3 col-sm-6 skill"> <span class="chart" data-percent="75"> <span class="percent">75</span> </span>
+      <div class="col-md-3 col-sm-6 skill"> <span class="chart" data-percent="75"> <span class="percent">80</span> </span>
         <h4>Linux Porficiency</h4>
       </div>
       <div class="col-md-3 col-sm-6 skill"> <span class="chart" data-percent="75"> <span class="percent">75</span> </span>
-        <h4>Octave</h4>
+        <h4>Octave and Matlab</h4>
       </div>
       <div class="col-md-3 col-sm-6 skill"> <span class="chart" data-percent="90"> <span class="percent">90</span> </span>
         <h4>Web Framework</h4>
@@ -152,138 +160,8 @@
     </div>
   </div>
 </div>
-<!-- Portfolio Section -->
-<!--
-<div id="portfolio">
-  <div class="container">
-    <div class="section-title text-center center">
-      <h2>Portfolio</h2>
-      <hr>
-    </div>
-    <div class="categories">
-      <ul class="cat">
-        <li>
-          <ol class="type">
-            <li><a href="#" data-filter="*" class="active">All</a></li>
-            <li><a href="#" data-filter=".web">Web Design</a></li>
-            <li><a href="#" data-filter=".app">App Development</a></li>
-            <li><a href="#" data-filter=".branding">Branding</a></li>
-          </ol>
-        </li>
-      </ul>
-      <div class="clearfix"></div>
-    </div>
-    <div class="row">
-      <div class="portfolio-items">
-        <div class="col-sm-6 col-md-3 col-lg-3 web">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/01-large.jpg" title="Project description" rel="prettyPhoto">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-                <small>Web Design</small> </div>
-              <img src="img/portfolio/01-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 app">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/02-large.jpg" title="Project description" rel="prettyPhoto">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-                <small>App Development</small> </div>
-              <img src="img/portfolio/02-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 web">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/03-large.jpg" title="Project description" rel="prettyPhoto">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-                <small>Web Design</small> </div>
-              <img src="img/portfolio/03-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 web">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/04-large.jpg" title="Project description" rel="prettyPhoto">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-                <small>Web Design</small> </div>
-              <img src="img/portfolio/04-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 app">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/05-large.jpg" title="Project description" rel="prettyPhoto">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-                <small>App Development</small> </div>
-              <img src="img/portfolio/05-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 branding">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/06-large.jpg" title="Project description" rel="prettyPhoto">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-                <small>Branding</small> </div>
-              <img src="img/portfolio/06-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 branding app">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/07-large.jpg" title="Project description" rel="prettyPhoto">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-                <small>App Development, Branding</small> </div>
-              <img src="img/portfolio/07-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 web">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/08-large.jpg" title="Project description" rel="prettyPhoto">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-                <small>Web Design</small> </div>
-              <img src="img/portfolio/08-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
 <!-- Achievements Section -->
 <!--
-<div id="achievements" class="text-center">
-  <div class="container">
-    <div class="section-title center">
-      <h2>Some Stats</h2>
-      <hr>
-    </div>
-    <div class="row">
-      <div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay="200ms">
-        <div class="achievement-box"> <span class="count">310</span>
-          <h4>Happy Clients</h4>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay="400ms">
-        <div class="achievement-box"> <span class="count">4700</span>
-          <h4>Hours of Work</h4>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay="600ms">
-        <div class="achievement-box"> <span class="count">30</span>
-          <h4>Awards Won</h4>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3 wow fadeInDown" data-wow-delay="800ms">
-        <div class="achievement-box"> <span class="count">8</span>
-          <h4>Years of Experience</h4>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 -->
 <!-- Resume Section -->
 <div id="resume" class="text-center">
@@ -295,7 +173,22 @@
     <div class="row">
       <div class="col-lg-12">
         <ul class="timeline">
-          
+          <li class="timeline-inverted">
+            <div class="timeline-image">
+              <h4>July 2018 <br>
+                - <br>
+                Present </h4>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4>Factset Systems India Private Limited</h4>
+                <h4 class="subheading">Dot Net Developer</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Working as a Dot Net Developer in technologies like WPF, MVC, WebAPI etc. Responsibilities include development and enhancement of different products of the agency.</p>
+              </div>
+            </div>
+          </li>
           <li>
             <div class="timeline-image">
               <h4>June 2014 <br>
@@ -308,7 +201,7 @@
                 <h4 class="subheading">Dot Net Developer</h4>
               </div>
               <div class="timeline-body">
-                <p>Worked as a full stack developer in refractoring of a examination delivery system for one of the leading assessment agency. Worked as a application support analyst for the same agency.</p>
+                <p>Worked as a full stack developer in refactoring of a examination delivery system for one of the leading assessment agency. Worked as a application support analyst for the same agency.</p>
               </div>
             </div>
           </li>
@@ -328,17 +221,17 @@
           <!-- Education Section-->
           <li class="timeline-inverted">
             <div class="timeline-image">
-              <h4>July 2017 <br>
+              <h4>July 2016 <br>
                 - <br>
-                Present </h4>
+                June 2018 </h4>
             </div>
             <div class="timeline-panel">
               <div class="timeline-heading">
                 <h4>National Institute of Technology Durgapur</h4>
-                <h4 class="subheading">Masters student</h4>
+                <h4 class="subheading">Master of Technology in Computer Science and Engineering</h4>
               </div>
               <div class="timeline-body">
-                <p>Persuing the course of Master of Technology in Computer Science and Engineering. Working on road condition analysis from ad-hoc sensor data.</p>
+                <p>Compleated M.Tech under the guidance of <a href="#">Dr. Subrata Nandi</a> and <a href="#">Dr. Sujoy Saha</a> securing 9.12 GPA.</p>
               </div>
             </div>
           </li>
@@ -395,6 +288,127 @@
     </div>
   </div>
 </div>
+<!-- Social Section -->
+
+<!-- Portfolio Section -->
+
+<div id="portfolio">
+  <div class="container">
+    <div class="section-title text-center center">
+      <h2>Galary</h2>
+      <hr>
+    </div>
+    <div class="categories">
+      <ul class="cat">
+        <li>
+          <ol class="type">
+            <li><a href="#" data-filter="*" class="active">All</a></li>
+            <li><a href="#" data-filter=".fr">Friends</a></li>
+            <li><a href="#" data-filter=".fm">Family</a></li>
+            <li><a href="#" data-filter=".tr">Tour</a></li>
+          </ol>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="row">
+      <div class="portfolio-items">
+        <div class="col-sm-6 col-md-3 col-lg-3 tr">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (1).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Ladakh 2018</h4>
+                <small>Ladakh Tour</small> </div>
+              <img src="img/portfolio/x(1).jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 fr tr">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (2).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Trek 2013</h4>
+                <small>Varsey Rhododendron Sanctuary</small> </div>
+              <img src="img/portfolio/x(2).jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 fm">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (3).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>With mother, father and brother</h4>
+                <small>Brother's Thread Ceremoney 2014</small> </div>
+              <img src="img/portfolio/x (3) - Copy.jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 fm tr">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (4).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Kerala tour 2015</h4>
+                <small>With family</small> </div>
+              <img src="img/portfolio/x (4) - Copy.jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 fr">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (5).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Durgapur Junction Mall</h4>
+                <small>M.Tech Friends Group</small> </div>
+              <img src="img/portfolio/x (5) - Copy.jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 fr">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (6).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">                
+                <h4>After heal fracture recovery</h4>
+                <small>M.Tech Friends Group</small> </div>
+              <img src="img/portfolio/x (6) - Copy.jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (7).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Durgapur winter</h4>
+                <small>Early morning selfie</small> </div>
+              <img src="img/portfolio/x (7) - Copy.jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 tr">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (8).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Gangtok 2018</h4>
+                <small>Selfie from Gonjang</small> </div>
+              <img src="img/portfolio/x (8) - Copy.jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 tr">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (9).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Ladakh 2018</h4>
+                <small>Wanna make it wallpaper??</small> </div>
+              <img src="img/portfolio/x (9) - Copy.jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 tr fm">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/x (10).jpg" title="Unfortunately no description" rel="prettyPhoto">
+              <div class="hover-text">
+                <h4>Ladakh 2018</h4>
+                <small>Crowded Pangong</small> </div>
+              <img src="img/portfolio/x (10) - Copy.jpg" class="img-responsive" alt="Unfortunately no Title"> </a> </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Contact Section -->
 <div id="contact" class="text-center">
   <div class="container">
@@ -454,11 +468,23 @@
   </div>
 </div>
 <div id="footer">
+  
+<div id="downlodables" class="text-center">
+  <div class="section-title text-center">
+      <h2 style="color: #fff">Downloads</h2>
+      <hr>
+    </div>
+  <p class="text-center"><a class="btn btn-primary" href="./btech_degree.pdf"><i class="fa fa-download"></i> B.Tech Degree</a><a class="btn btn-primary" href="./resume.pdf"><i class="fa fa-download"></i> Download Resume</a><a class="btn btn-primary" href="./job_exp.pdf"><i class="fa fa-download"></i> Cognizant Job Experience</a></p>
+  </div>
+
+
   <div class="container text-center">
     <div class="fnav">
       <p>Designed by <a href="http://www.templatewire.com" rel="nofollow">TemplateWire</a></p>
     </div>
-  </div>
+ 
+</div>
+ </div>
 </div>
 <script type="text/javascript" src="js/jquery.1.11.1.js"></script> 
 <script type="text/javascript" src="js/bootstrap.js"></script> 

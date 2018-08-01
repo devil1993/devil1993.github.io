@@ -629,7 +629,7 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 	color: #a0a5a5;
 }
 #footer a:hover {
-	color: #7bc3d1;
+	color: #000000;
 }
 
 /* Media Queries */
