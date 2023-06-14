@@ -52,6 +52,7 @@ $('#nav').affix({
   	// Portfolio isotope filter
     $(window).load(function() {
         var $container = $('.portfolio-items');
+        var $containerGal = $('.portfolio-items-galary');
         $container.isotope({
             filter: '*',
             animationOptions: {
@@ -60,11 +61,19 @@ $('#nav').affix({
                 queue: false
             }
         });
+        $containerGal.isotope({
+          filter: '*',
+          animationOptions: {
+              duration: 750,
+              easing: 'linear',
+              queue: false
+          }
+      });
         $('.cat a').click(function() {
             $('.cat .active').removeClass('active');
             $(this).addClass('active');
             var selector = $(this).attr('data-filter');
-            $container.isotope({
+            $containerGal.isotope({
                 filter: selector,
                 animationOptions: {
                     duration: 750,
@@ -74,6 +83,20 @@ $('#nav').affix({
             });
             return false;
         });
+        $('.dog a').click(function() {
+          $('.dog .active').removeClass('active');
+          $(this).addClass('active');
+          var selector = $(this).attr('data-filter');
+          $container.isotope({
+              filter: selector,
+              animationOptions: {
+                  duration: 750,
+                  easing: 'linear',
+                  queue: false
+              }
+          });
+          return false;
+      });
 
     });
 	

@@ -246,6 +246,17 @@ hr {
 	margin-left: 0.1em;
 	font-size: .8em;
 }
+#projects {
+	padding: 80px 0;
+	background: #f6f6f6; /* Old browsers */
+	background: -moz-linear-gradient(top, #f6f6f6 0%, #f4f5f6 49%, #f6f6f6 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f6f6f6), color-stop(49%, #f4f5f6), color-stop(100%, #f6f6f6)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #f6f6f6 0%, #f4f5f6 49%, #f6f6f6 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #f6f6f6 0%, #f4f5f6 49%, #f6f6f6 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #f6f6f6 0%, #f4f5f6 49%, #f6f6f6 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #f6f6f6 0%, #f4f5f6 49%, #f6f6f6 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#f6f6f6', GradientType=0 ); /* IE6-9 */
+}
 /* Portfolio Section */
 #portfolio {
 	padding: 80px 0;
@@ -263,6 +274,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	text-align: center;
 }
 ul.cat li {
+	display: inline-block;
+}
+ul.dog li {
 	display: inline-block;
 }
 ol.type li {
@@ -407,7 +421,7 @@ ol.type li a:hover {
 /* Resume Section */
 #resume {
 	padding: 100px 0;
-	background: #f6f6f6;
+	background: #ffffff;
 }
 .timeline {
 	position: relative;
