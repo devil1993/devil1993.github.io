@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACK HOLE — Enter the Event Horizon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            cursor: default;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ---------- Starfield ---------- */
+        .stars, .stars::before, .stars::after {
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+                radial-gradient(1px 1px at 40px 70px, #fff, transparent),
+                radial-gradient(1px 1px at 50px 160px, #fff, transparent),
+                radial-gradient(2px 2px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+                radial-gradient(1px 1px at 160px 120px, #fff, transparent),
+                radial-gradient(2px 2px at 200px 50px, #aef, transparent),
+                radial-gradient(1px 1px at 240px 180px, #fff, transparent),
+                radial-gradient(1px 1px at 280px 100px, #fff, transparent),
+                radial-gradient(1px 1px at 320px 220px, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 350px 250px;
+            animation: drift 60s linear infinite;
+            z-index: 1;
+        }
+        .stars::before {
+            content: '';
+            background-size: 500px 400px;
+            opacity: 0.6;
+            animation-duration: 120s;
+            animation-direction: reverse;
+        }
+        .stars::after {
+            content: '';
+            background-size: 700px 550px;
+            opacity: 0.35;
+            animation-duration: 200s;
+        }
+
+        @keyframes drift {
+            from { transform: translate(0, 0); }
+            to   { transform: translate(-350px, -250px); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ---------- Modal ---------- */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
+            display: grid;
+            place-items: center;
+            z-index: 10;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        .modal {
+            position: relative;
+            width: min(560px, 92vw);
+            padding: 54px 48px 46px;
+            background: linear-gradient(155deg,
+                rgba(20, 5, 40, 0.85),
+                rgba(5, 0, 20, 0.92) 60%,
+                rgba(40, 5, 60, 0.85));
+            border: 1px solid rgba(180, 120, 255, 0.4);
+            border-radius: 18px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow:
+                0 0 0 1px rgba(255, 100, 220, 0.15),
+                0 0 60px rgba(140, 60, 255, 0.35),
+                0 0 140px rgba(255, 80, 200, 0.2),
+                inset 0 0 40px rgba(120, 40, 200, 0.1);
+            animation: modalIn 0.9s cubic-bezier(.2, .9, .3, 1.2) both;
+            text-align: center;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.92); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Glowing border sweep */
+        .modal::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 18px;
+            padding: 1px;
+            background: conic-gradient(from 0deg,
+                transparent 0deg,
+                #ff4ac7 60deg,
+                #4accff 140deg,
+                transparent 200deg,
+                #b24aff 280deg,
+                transparent 360deg);
+            -webkit-mask:
+                linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+            animation: spin 6s linear infinite;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #b89aff;
+            margin-bottom: 16px;
+            opacity: 0.95;
+        }
+
+        h1 {
+            font-size: clamp(38px, 6vw, 64px);
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            background: linear-gradient(90deg, #ff4ac7, #b24aff, #4accff, #ff4ac7);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+                    background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+            text-shadow: 0 0 40px rgba(255, 100, 220, 0.35);
+            margin-bottom: 6px;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 300% 0; }
+        }
+
+        .subtitle {
+            font-size: 13px;
+            font-weight: 500;
+            color: #c9b3ff;
+            opacity: 0.8;
+            margin-bottom: 38px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .prompt {
+            font-size: 15px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 22px;
+            letter-spacing: 0.02em;
+        }
+        .prompt span {
+            color: #ff4ac7;
+            font-weight: 800;
+        }
+
+        .players {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-bottom: 36px;
+        }
+
+        .player-btn {
+            position: relative;
+            aspect-ratio: 1;
+            background: rgba(30, 10, 60, 0.5);
+            border: 1px solid rgba(180, 120, 255, 0.3);
+            border-radius: 12px;
+            color: #e7d9ff;
+            font-family: inherit;
+            font-size: 24px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform .15s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease, color .2s ease;
+        }
+        .player-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(60, 20, 110, 0.7);
+            border-color: #ff4ac7;
+            color: #fff;
+            box-shadow: 0 0 25px rgba(255, 74, 199, 0.45);
+        }
+        .player-btn.selected {
+            background: linear-gradient(160deg, #ff4ac7, #b24aff 55%, #4accff);
+            color: #fff;
+            border-color: transparent;
+            box-shadow:
+                0 0 30px rgba(255, 74, 199, 0.7),
+                0 0 60px rgba(76, 204, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .start {
+            width: 100%;
+            padding: 16px 28px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #fff;
+            background: linear-gradient(90deg, #ff4ac7, #b24aff, #4accff);
+            background-size: 200% 100%;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform .15s ease, box-shadow .2s ease, background-position .4s ease, opacity .2s ease;
+            box-shadow:
+                0 0 30px rgba(178, 74, 255, 0.45),
+                0 0 60px rgba(255, 74, 199, 0.25);
+        }
+        .start:hover:not(:disabled) {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow:
+                0 0 45px rgba(178, 74, 255, 0.7),
+                0 0 90px rgba(255, 74, 199, 0.4);
+        }
+        .start:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .hint {
+            font-size: 11px;
+            font-weight: 500;
+            color: #9d87c4;
+            margin-top: 18px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* Hide modal cleanly when dismissed */
+        .modal-backdrop.hidden {
+            animation: fadeOut 0.5s ease forwards;
+            pointer-events: none;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+
+        /* ---------- Triangle of stones ---------- */
+        .triangle-stage {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            padding-left: 280px; /* leave room for sidebar in landscape */
+            transition: opacity 0.8s ease 0.2s, padding 0.3s ease;
+        }
+        .triangle-stage.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        @media (max-aspect-ratio: 1/1) {
+            .triangle-stage { padding-left: 0; padding-top: 190px; }
+        }
+
+        .triangle {
+            --stone: 46px;
+            --gap-x: 14px;
+            --gap-y: 16px;
+            --font: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--gap-y);
+        }
+        .triangle.dense   { --stone: 40px; --gap-x: 12px; --gap-y: 14px; --font: 16px; }
+        .triangle.cramped { --stone: 34px; --gap-x: 10px; --gap-y: 12px; --font: 14px; }
+
+        .tri-row {
+            display: flex;
+            gap: var(--gap-x);
+        }
+
+        .stone {
+            width: var(--stone);
+            height: var(--stone);
+            border-radius: 50%;
+            background: radial-gradient(circle at 32% 30%,
+                rgba(80, 40, 130, 0.35) 0%,
+                rgba(15, 5, 35, 0.9) 70%,
+                rgba(10, 0, 25, 0.95) 100%);
+            border: 1px solid rgba(180, 120, 255, 0.35);
+            box-shadow:
+                inset 0 0 8px rgba(80, 40, 150, 0.3),
+                0 0 10px rgba(140, 80, 220, 0.2);
+            display: grid;
+            place-items: center;
+            font-family: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
+            font-size: var(--font);
+            font-weight: 800;
+            color: #fff;
+            text-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.9),
+                0 0 4px rgba(0, 0, 0, 0.7);
+            user-select: none;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0) rotate(180deg);
+            animation: stoneIn 0.55s cubic-bezier(.2, .9, .3, 1.5) forwards;
+            transition: transform 0.15s ease, box-shadow 0.25s ease,
+                        border-color 0.25s ease, background 0.35s ease;
+        }
+
+        .stone:not(.claimed):hover {
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.7);
+            box-shadow:
+                inset 0 0 10px rgba(200, 150, 255, 0.45),
+                0 0 22px rgba(200, 150, 255, 0.55);
+        }
+
+        .stone.claimed {
+            cursor: default;
+            background: radial-gradient(circle at 32% 30%,
+                var(--p-light, #fff) 0%,
+                var(--p-base, #ff4ac7) 55%,
+                var(--p-dark, #6b1fb8) 100%);
+            border-color: transparent;
+            box-shadow:
+                0 0 14px color-mix(in srgb, var(--p-base, #ff4ac7) 70%, transparent),
+                0 0 28px color-mix(in srgb, var(--p-base, #ff4ac7) 40%, transparent),
+                inset 0 0 8px rgba(255, 255, 255, 0.35);
+        }
+
+        @keyframes stoneIn {
+            to { opacity: 1; transform: scale(1) rotate(0); }
+        }
+
+        /* ---------- Player list ---------- */
+        .player-list {
+            position: fixed;
+            left: 0; top: 0; bottom: 0;
+            width: 280px;
+            z-index: 7;
+            padding: 24px 20px;
+            background: linear-gradient(180deg, rgba(18, 5, 42, 0.82), rgba(5, 0, 22, 0.9));
+            border-right: 1px solid rgba(180, 120, 255, 0.3);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 0 60px rgba(140, 60, 255, 0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: opacity 0.6s ease 0.35s,
+                        transform 0.7s cubic-bezier(.2,.9,.3,1.1) 0.35s;
+        }
+        .player-list.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .pl-header { padding-bottom: 12px; border-bottom: 1px solid rgba(180, 120, 255, 0.2); }
+        .pl-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: #b89aff;
+        }
+        .pl-meta {
+            font-size: 11px;
+            font-weight: 500;
+            color: #9d87c4;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+        .pl-meta .dot { color: #5a3f85; margin: 0 6px; }
+
+        .pl-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 4px;
+            scroll-behavior: smooth;
+        }
+        .pl-body::-webkit-scrollbar { width: 4px; }
+        .pl-body::-webkit-scrollbar-thumb { background: rgba(180, 120, 255, 0.3); border-radius: 2px; }
+
+        .player {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px 10px 22px;
+            background: rgba(30, 10, 60, 0.45);
+            border: 1px solid rgba(180, 120, 255, 0.2);
+            border-radius: 12px;
+            transition: background .25s ease, border-color .25s ease,
+                        box-shadow .25s ease, transform .25s ease;
+        }
+        /* Active-player chevron + accent bar */
+        .player::before {
+            content: '';
+            position: absolute;
+            left: 6px; top: 50%;
+            width: 3px; height: 0;
+            border-radius: 2px;
+            background: var(--p-base);
+            transform: translateY(-50%);
+            transition: height .25s ease;
+        }
+        .player.active::before {
+            height: 62%;
+            box-shadow: 0 0 10px var(--p-base);
+        }
+        .player .turn-badge {
+            position: absolute;
+            top: -8px; right: 10px;
+            padding: 2px 8px;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            font-weight: 800;
+            color: #fff;
+            background: var(--p-base);
+            border-radius: 999px;
+            opacity: 0;
+            transform: translateY(-4px) scale(0.85);
+            transition: opacity .25s ease, transform .25s ease;
+            box-shadow: 0 0 12px color-mix(in srgb, var(--p-base) 60%, transparent);
+            pointer-events: none;
+        }
+        .player.active .turn-badge {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            animation: badgePulse 1.4s ease-in-out infinite;
+        }
+        @keyframes badgePulse {
+            0%, 100% { filter: brightness(1); }
+            50%      { filter: brightness(1.4); }
+        }
+        .player.active {
+            border-color: var(--p-base);
+            background: rgba(40, 15, 80, 0.75);
+            transform: translateX(4px);
+            animation: activePulse 1.8s ease-in-out infinite;
+        }
+        @keyframes activePulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 0 1px var(--p-base),
+                    0 0 14px color-mix(in srgb, var(--p-base) 30%, transparent);
+            }
+            50% {
+                box-shadow:
+                    0 0 0 1px var(--p-base),
+                    0 0 30px color-mix(in srgb, var(--p-base) 60%, transparent);
+            }
+        }
+
+        .swatch {
+            width: 38px; height: 38px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: grid; place-items: center;
+            font-size: 16px; font-weight: 800;
+            color: #fff;
+            font-family: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
+            background: radial-gradient(circle at 32% 30%,
+                var(--p-light) 0%, var(--p-base) 55%, var(--p-dark) 100%);
+            box-shadow:
+                0 0 14px color-mix(in srgb, var(--p-base) 55%, transparent),
+                inset 0 0 6px rgba(255, 255, 255, 0.35);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .info { flex: 1; min-width: 0; }
+        .p-label {
+            font-size: 14px;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .p-count {
+            font-size: 11px;
+            font-weight: 500;
+            color: #9d87c4;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+        .p-count .c { color: #fff; font-weight: 800; }
+        .player.active .p-count .c { color: var(--p-base); }
+
+        @media (max-aspect-ratio: 1/1) {
+            .player-list {
+                left: 0; right: 0;
+                top: 0; bottom: auto;
+                width: auto;
+                max-height: 190px;
+                padding: 14px 18px;
+                border-right: none;
+                border-bottom: 1px solid rgba(180, 120, 255, 0.3);
+                transform: translateY(-100%);
+            }
+            .player-list.visible { transform: translateY(0); }
+            .pl-header { padding-bottom: 8px; }
+            .pl-body {
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-right: 0;
+                padding-bottom: 4px;
+            }
+            .player {
+                min-width: 160px;
+                flex-shrink: 0;
+            }
+            .player.active { transform: translateY(2px); }
+        }
+
+        /* ---------- End-game effects ---------- */
+        .stone.is-black-hole {
+            animation: becomeBlackHole 1.3s cubic-bezier(.2,.7,.3,1) forwards;
+            z-index: 10;
+            cursor: default;
+            color: transparent !important;
+            text-shadow: none;
+        }
+        @keyframes becomeBlackHole {
+            0% {
+                transform: scale(1) rotate(0);
+                background: radial-gradient(circle at 32% 30%,
+                    rgba(80, 40, 130, 0.35) 0%,
+                    rgba(15, 5, 35, 0.9) 70%,
+                    rgba(10, 0, 25, 0.95) 100%);
+            }
+            100% {
+                transform: scale(2.6) rotate(360deg);
+                background:
+                    radial-gradient(circle at 50% 50%,
+                        #000 28%,
+                        rgba(107, 31, 184, 0.75) 55%,
+                        rgba(255, 74, 199, 0.55) 80%,
+                        transparent 100%);
+                border-color: transparent;
+                box-shadow:
+                    0 0 40px rgba(0, 0, 0, 0.95),
+                    0 0 90px rgba(255, 74, 199, 0.75),
+                    0 0 180px rgba(178, 74, 255, 0.55),
+                    inset 0 0 24px rgba(0, 0, 0, 0.9);
+            }
+        }
+
+        .stone.is-adjacent {
+            animation: adjacentPulse 1.2s ease-in-out infinite;
+            z-index: 5;
+        }
+        @keyframes adjacentPulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50%      { transform: scale(1.14); filter: brightness(1.55); }
+        }
+
+        .stone.dimmed {
+            opacity: 0.22;
+            filter: grayscale(0.65) brightness(0.75);
+            transition: opacity 0.7s ease, filter 0.7s ease;
+        }
+
+        /* ---------- Scoreboard ---------- */
+        .sb-backdrop {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.55), rgba(0,0,0,0.92));
+            display: grid;
+            place-items: center;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+        .sb-backdrop.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .scoreboard {
+            position: relative;
+            width: min(580px, 92vw);
+            padding: 44px 40px 36px;
+            background: linear-gradient(155deg,
+                rgba(20, 5, 40, 0.9),
+                rgba(5, 0, 20, 0.95) 60%,
+                rgba(40, 5, 60, 0.9));
+            border: 1px solid rgba(180, 120, 255, 0.4);
+            border-radius: 18px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow:
+                0 0 60px rgba(140, 60, 255, 0.4),
+                0 0 160px rgba(255, 80, 200, 0.25);
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.7s cubic-bezier(.2,.9,.3,1.2);
+        }
+        .sb-backdrop.visible .scoreboard { transform: scale(1); }
+
+        .scoreboard::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 18px;
+            padding: 1px;
+            background: conic-gradient(from 0deg,
+                transparent 0deg,
+                #ff4ac7 60deg,
+                #4accff 140deg,
+                transparent 200deg,
+                #b24aff 280deg,
+                transparent 360deg);
+            -webkit-mask:
+                linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+            animation: spin 6s linear infinite;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .sb-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            background: linear-gradient(90deg, #ff4ac7, #b24aff, #4accff, #ff4ac7);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+                    background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+            margin-bottom: 4px;
+        }
+
+        .score-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 26px 0 28px;
+        }
+
+        .score-row {
+            display: grid;
+            grid-template-columns: 34px 40px 1fr auto 30px;
+            gap: 14px;
+            align-items: center;
+            padding: 12px 14px;
+            background: rgba(30, 10, 60, 0.55);
+            border: 1px solid rgba(180, 120, 255, 0.22);
+            border-radius: 12px;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: sbRowIn 0.5s cubic-bezier(.2,.9,.3,1.1) forwards;
+        }
+        @keyframes sbRowIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .score-row .rank {
+            font-size: 18px;
+            font-weight: 900;
+            color: #9d87c4;
+            text-align: center;
+            font-family: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
+        }
+        .score-row .swatch {
+            width: 40px; height: 40px;
+            font-size: 17px;
+        }
+        .score-row .info { min-width: 0; }
+        .score-row .p-label { font-size: 15px; letter-spacing: 0.04em; font-weight: 700; }
+        .score-row .score-sub {
+            font-size: 10px;
+            font-weight: 600;
+            color: #9d87c4;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+        .score-row .num {
+            font-size: 26px;
+            font-weight: 800;
+            color: #fff;
+            font-family: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
+            line-height: 1;
+        }
+        .score-row .crown {
+            width: 26px;
+            text-align: center;
+            font-size: 20px;
+            color: var(--p-base);
+            text-shadow: 0 0 14px var(--p-base);
+            opacity: 0;
+        }
+        .score-row.winner .crown {
+            opacity: 1;
+            animation: crownSpin 2.8s ease-in-out infinite;
+        }
+        @keyframes crownSpin {
+            0%, 100% { transform: rotate(-10deg) scale(1); }
+            50%      { transform: rotate(10deg) scale(1.2); }
+        }
+        .score-row.winner {
+            border-color: var(--p-base);
+            background: linear-gradient(90deg,
+                color-mix(in srgb, var(--p-base) 22%, transparent),
+                rgba(30, 10, 60, 0.75));
+            box-shadow: 0 0 26px color-mix(in srgb, var(--p-base) 40%, transparent);
+        }
+        .score-row.winner .rank,
+        .score-row.winner .num {
+            color: var(--p-base);
+            text-shadow: 0 0 14px var(--p-base);
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+
+    <div class="modal-backdrop" id="backdrop">
+        <div class="modal" role="dialog" aria-labelledby="title">
+            <div class="eyebrow">⬢ Gravitational Anomaly Detected ⬢</div>
+            <h1 id="title">BLACK HOLE</h1>
+            <div class="subtitle">Enter the Event Horizon</div>
+
+            <div class="prompt">How many souls will you drag in? <span id="count">—</span></div>
+
+            <div class="players" id="players">
+                <button class="player-btn" data-n="2">2</button>
+                <button class="player-btn" data-n="3">3</button>
+                <button class="player-btn" data-n="4">4</button>
+                <button class="player-btn" data-n="5">5</button>
+                <button class="player-btn" data-n="6">6</button>
+                <button class="player-btn" data-n="7">7</button>
+            </div>
+
+            <button class="start" id="start" disabled>Cross the Horizon</button>
+            <div class="hint">Select 2 – 7 players to begin</div>
+        </div>
+    </div>
+
+    <aside class="player-list" id="playerList">
+        <div class="pl-header">
+            <div class="pl-title">Players</div>
+            <div class="pl-meta" id="plMeta">— stones <span class="dot">·</span> — rows</div>
+        </div>
+        <div class="pl-body" id="plBody"></div>
+    </aside>
+
+    <div class="triangle-stage" id="stage">
+        <div class="triangle" id="triangle"></div>
+    </div>
+
+    <div class="sb-backdrop" id="sbBackdrop">
+        <div class="scoreboard">
+            <div class="eyebrow">◈ Event Horizon Breached ◈</div>
+            <h2 class="sb-title">FINAL GRAVITY</h2>
+            <div class="subtitle">Lowest pull wins — sum of stones touching the black hole</div>
+            <div class="score-rows" id="scoreRows"></div>
+            <button class="start" id="playAgain">New Anomaly</button>
+        </div>
+    </div>
+
+    <script>
+        const PALETTE = [
+            { name: 'Red',     base: '#ff3b5c', light: '#ffd6de', dark: '#7a0f24' },
+            { name: 'Blue',    base: '#3b82f6', light: '#cfdffe', dark: '#0b2c7a' },
+            { name: 'Green',   base: '#22c55e', light: '#cef0d9', dark: '#0b5429' },
+            { name: 'Yellow',  base: '#eab308', light: '#fbeaa5', dark: '#6b4e00' },
+            { name: 'Magenta', base: '#d946ef', light: '#f4c8fa', dark: '#5f1277' },
+            { name: 'Cyan',    base: '#06b6d4', light: '#bdebf4', dark: '#074b5a' },
+            { name: 'Orange',  base: '#f97316', light: '#fdd4ae', dark: '#733008' },
+        ];
+
+        const buttons = document.querySelectorAll('.player-btn');
+        const countEl = document.getElementById('count');
+        const startBtn = document.getElementById('start');
+        const backdrop = document.getElementById('backdrop');
+        const stage = document.getElementById('stage');
+        const triangle = document.getElementById('triangle');
+        const playerList = document.getElementById('playerList');
+        const plBody = document.getElementById('plBody');
+        const plMeta = document.getElementById('plMeta');
+        const sbBackdrop = document.getElementById('sbBackdrop');
+        const scoreRows = document.getElementById('scoreRows');
+
+        let selected = null;
+        const game = {
+            players: [],
+            currentIdx: 0,
+            turnCounts: [],
+            claimed: 0,
+            total: 0,
+            rows: 0,
+            stones: [],  // stones[r][c] -> { el, row, col, playerIdx, turnNum }
+            ended: false,
+        };
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selected = Number(btn.dataset.n);
+                countEl.textContent = selected;
+                startBtn.disabled = false;
+            });
+        });
+
+        // Smallest triangle with at least 6 rows whose total stones C
+        // satisfies C mod players === 1. Guarantees one stone left over
+        // after every player claims (total-1)/players stones.
+        function triangleSizeFor(players) {
+            for (let n = 6; n <= 200; n++) {
+                const total = n * (n + 1) / 2;
+                if (total % players === 1) return { rows: n, total };
+            }
+            return { rows: 6, total: 21 };
+        }
+
+        function buildPlayerList() {
+            plBody.innerHTML = '';
+            game.players.forEach((p, idx) => {
+                const card = document.createElement('div');
+                card.className = 'player';
+                card.dataset.idx = idx;
+                card.style.setProperty('--p-base', p.base);
+                card.style.setProperty('--p-light', p.light);
+                card.style.setProperty('--p-dark', p.dark);
+                card.innerHTML = `
+                    <span class="turn-badge">◄ TURN</span>
+                    <div class="swatch">${idx + 1}</div>
+                    <div class="info">
+                        <div class="p-label">${p.name}</div>
+                        <div class="p-count"><span class="c">0</span> claimed</div>
+                    </div>
+                `;
+                plBody.appendChild(card);
+            });
+            updateActive();
+        }
+
+        function updateActive() {
+            document.querySelectorAll('.player').forEach((el, i) => {
+                el.classList.toggle('active', !game.ended && i === game.currentIdx);
+            });
+            scrollActiveIntoView();
+        }
+
+        // On small screens the player list scrolls — keep the active card
+        // centered so it's always visible when the turn changes.
+        function scrollActiveIntoView() {
+            if (game.ended) return;
+            const card = plBody.children[game.currentIdx];
+            if (!card) return;
+
+            if (plBody.scrollWidth > plBody.clientWidth + 1) {
+                const left = card.offsetLeft - (plBody.clientWidth - card.offsetWidth) / 2;
+                plBody.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+            }
+            if (plBody.scrollHeight > plBody.clientHeight + 1) {
+                const top = card.offsetTop - (plBody.clientHeight - card.offsetHeight) / 2;
+                plBody.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+            }
+        }
+
+        function bumpCount(idx) {
+            const card = plBody.children[idx];
+            if (card) card.querySelector('.c').textContent = game.turnCounts[idx];
+        }
+
+        function onStoneClick(e) {
+            if (game.ended) return;
+            const stone = e.currentTarget;
+            const data = stone.__data;
+            if (data.playerIdx !== null) return;
+
+            const p = game.players[game.currentIdx];
+            game.turnCounts[game.currentIdx] += 1;
+            game.claimed += 1;
+            data.playerIdx = game.currentIdx;
+            data.turnNum = game.turnCounts[game.currentIdx];
+
+            stone.style.setProperty('--p-base', p.base);
+            stone.style.setProperty('--p-light', p.light);
+            stone.style.setProperty('--p-dark', p.dark);
+            stone.textContent = game.turnCounts[game.currentIdx];
+            stone.classList.add('claimed');
+            stone.animate(
+                [{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }, { transform: 'scale(1)' }],
+                { duration: 420, easing: 'cubic-bezier(.2,.9,.3,1.4)' }
+            );
+
+            bumpCount(game.currentIdx);
+
+            if (game.claimed === game.total - 1) {
+                game.ended = true;
+                updateActive();
+                setTimeout(endGame, 450);
+                return;
+            }
+
+            game.currentIdx = (game.currentIdx + 1) % game.players.length;
+            updateActive();
+        }
+
+        function renderTriangle(rows) {
+            triangle.innerHTML = '';
+            triangle.classList.remove('dense', 'cramped');
+            if (rows >= 9) triangle.classList.add('cramped');
+            else if (rows >= 7) triangle.classList.add('dense');
+
+            game.stones = [];
+            for (let r = 0; r < rows; r++) {
+                game.stones[r] = [];
+                const rowEl = document.createElement('div');
+                rowEl.className = 'tri-row';
+                for (let c = 0; c <= r; c++) {
+                    const stone = document.createElement('div');
+                    stone.className = 'stone';
+                    stone.style.animationDelay = `${0.25 + r * 0.06 + c * 0.02}s`;
+                    const data = { el: stone, row: r, col: c, playerIdx: null, turnNum: null };
+                    stone.__data = data;
+                    stone.addEventListener('click', onStoneClick);
+                    rowEl.appendChild(stone);
+                    game.stones[r].push(data);
+                }
+                triangle.appendChild(rowEl);
+            }
+        }
+
+        // Triangular-grid neighbours: 2 same-row, 2 upper, 2 lower (up to 6).
+        function getNeighbours(r, c) {
+            const coords = [
+                [r, c - 1], [r, c + 1],
+                [r - 1, c - 1], [r - 1, c],
+                [r + 1, c], [r + 1, c + 1],
+            ];
+            return coords
+                .filter(([nr, nc]) =>
+                    nr >= 0 && nr < game.stones.length &&
+                    nc >= 0 && nc < game.stones[nr].length)
+                .map(([nr, nc]) => game.stones[nr][nc]);
+        }
+
+        function endGame() {
+            // The single unclaimed stone is the black hole.
+            let hole = null;
+            for (const row of game.stones) {
+                for (const s of row) {
+                    if (s.playerIdx === null) { hole = s; break; }
+                }
+                if (hole) break;
+            }
+
+            const neighbours = getNeighbours(hole.row, hole.col);
+            const scores = new Array(game.players.length).fill(0);
+            neighbours.forEach(n => {
+                if (n.playerIdx !== null) scores[n.playerIdx] += n.turnNum;
+            });
+
+            // Visual: scale the leftover into a black hole, pulse adjacent
+            // stones, dim the rest.
+            hole.el.textContent = '';
+            hole.el.classList.add('is-black-hole');
+
+            const adjacentEls = new Set(neighbours.map(n => n.el));
+            document.querySelectorAll('.stone.claimed').forEach(s => {
+                if (adjacentEls.has(s)) s.classList.add('is-adjacent');
+                else s.classList.add('dimmed');
+            });
+
+            setTimeout(() => showScoreboard(scores), 1500);
+        }
+
+        function showScoreboard(scores) {
+            const entries = game.players
+                .map((p, i) => ({ ...p, idx: i, score: scores[i] }))
+                .sort((a, b) => a.score - b.score);
+            const minScore = entries[0].score;
+
+            scoreRows.innerHTML = '';
+            entries.forEach((entry, rank) => {
+                const isWinner = entry.score === minScore;
+                const row = document.createElement('div');
+                row.className = 'score-row' + (isWinner ? ' winner' : '');
+                row.style.setProperty('--p-base', entry.base);
+                row.style.setProperty('--p-light', entry.light);
+                row.style.setProperty('--p-dark', entry.dark);
+                row.style.animationDelay = `${0.15 + rank * 0.1}s`;
+                row.innerHTML = `
+                    <div class="rank">${rank + 1}</div>
+                    <div class="swatch">${entry.idx + 1}</div>
+                    <div class="info">
+                        <div class="p-label">${entry.name}</div>
+                        <div class="score-sub">Gravity</div>
+                    </div>
+                    <div class="num" data-target="${entry.score}">0</div>
+                    <div class="crown">★</div>
+                `;
+                scoreRows.appendChild(row);
+            });
+
+            sbBackdrop.classList.add('visible');
+
+            setTimeout(() => {
+                scoreRows.querySelectorAll('.num').forEach(animateCounter);
+            }, 700);
+        }
+
+        function animateCounter(el) {
+            const target = Number(el.dataset.target);
+            if (target === 0) { el.textContent = '0'; return; }
+            const duration = 900;
+            const start = performance.now();
+            function step(now) {
+                const t = Math.min(1, (now - start) / duration);
+                el.textContent = Math.round(t * target);
+                if (t < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        document.getElementById('playAgain').addEventListener('click', () => {
+            location.reload();
+        });
+
+        startBtn.addEventListener('click', () => {
+            if (!selected) return;
+            const { rows, total } = triangleSizeFor(selected);
+
+            game.players = PALETTE.slice(0, selected);
+            game.currentIdx = 0;
+            game.turnCounts = new Array(selected).fill(0);
+            game.claimed = 0;
+            game.total = total;
+            game.rows = rows;
+            game.ended = false;
+
+            plMeta.innerHTML = `${total} stones <span class="dot">·</span> ${rows} rows <span class="dot">·</span> ${selected} players`;
+            buildPlayerList();
+            renderTriangle(rows);
+
+            backdrop.classList.add('hidden');
+            stage.classList.add('visible');
+            playerList.classList.add('visible');
+        });
+    </script>
+</body>
+</html>
